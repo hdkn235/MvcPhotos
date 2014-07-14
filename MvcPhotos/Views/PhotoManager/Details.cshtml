@@ -1,0 +1,64 @@
+﻿@model MvcPhotos.Models.Photo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Photo</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Album.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Album.Name)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Clicks)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Clicks)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.CreateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateTime)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.UpCount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpCount)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.DownCount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DownCount)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

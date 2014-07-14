@@ -1,0 +1,89 @@
+﻿@model IEnumerable<MvcPhotos.Models.Photo>
+
+@section scripts{
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+    <script src="~/Scripts/PhotoScripts.js"></script>
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+
+    <p>
+        照片名称:@Html.TextBox(
+                    "searchString", 
+                    null, 
+                    new { data_autocomplete_source = Url.Action("QuickSearch") })
+        <input type="button" id="btnSearch" value="Search" data-search-source="@Url.Action("Index")" />
+    </p>
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Album.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhotoPath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clicks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DownCount)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Album.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhotoPath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clicks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DownCount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PhotoId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.PhotoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.PhotoId })
+            </td>
+        </tr>
+    }
+
+</table>
