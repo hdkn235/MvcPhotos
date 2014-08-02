@@ -145,6 +145,11 @@ csx/
 # Windows Store app package directory
 AppPackages/
 
+# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
 # Others
 sql/
 *.Cache
@@ -180,3 +185,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# Custom Files
+MvcPhotos/Content/photos/**

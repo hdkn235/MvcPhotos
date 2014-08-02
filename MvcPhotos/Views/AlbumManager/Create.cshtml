@@ -1,52 +1,52 @@
 ﻿@model MvcPhotos.Models.Album
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "新增相册";
 }
 
-<h2>Create</h2>
+<h2>新增相册</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("UploadAlbum", "PhotoUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Album</legend>
+        <div id="upload-choices">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CoverPath)
+            </div>
+            <div class="editor-field">
+                @Html.File("File")
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.Description, new { rows = "10", cols = "20" })
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+            <div class="clear">
+                <button type="submit">上传</button>
+                @Html.ActionLink("返回", "Index")
+            </div>
+        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
+        @Html.Partial("_PhotoUploadPartial")
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CoverPath)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CoverPath)
-            @Html.ValidationMessageFor(model => model.CoverPath)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/PhotoUpload.js"></script>
 }

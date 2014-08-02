@@ -1,36 +1,39 @@
 ﻿@model MvcPhotos.Models.Album
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "相册详细";
 }
 
-<h2>Details</h2>
+<h2>相册详细</h2>
 
 <fieldset>
-    <legend>Album</legend>
+    <legend>相册</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+        @Html.LabelFor(model => model.Name)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Description)
+        @Html.LabelFor(model => model.Description)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.CoverPath)
+        @Html.LabelFor(model => model.CoverPath)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.CoverPath)
+        @Html.Image(
+        "uploadImage",
+        Url.Content("~/Content/photos/" + Model.CoverPath),
+        Model.Name)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.AlbumId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("编辑", "Edit", new { id = Model.AlbumId }) |
+    @Html.ActionLink("返回相册列表", "Index")
 </p>

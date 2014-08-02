@@ -13,6 +13,7 @@ namespace MvcPhotos.Models
     {
         public int PhotoId { get; set; }
 
+        [DisplayName("相册")]
         public int AlbumId { get; set; }
 
         [DisplayName("照片名称")]

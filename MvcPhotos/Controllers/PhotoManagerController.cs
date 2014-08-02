@@ -160,6 +160,15 @@ namespace MvcPhotos.Controllers
             return Json(artists, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult BatchUpload()
+        {
+            ViewBag.AlbumId = new SelectList(
+                unitOfWork.AlbumRepository.Get(),
+                "AlbumId",
+                "Name");
+            return View("");
+        }
+
         protected override void Dispose(bool disposing)
         {
             unitOfWork.Dispose();

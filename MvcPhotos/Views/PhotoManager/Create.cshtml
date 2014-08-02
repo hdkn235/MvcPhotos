@@ -1,25 +1,27 @@
 ﻿@model MvcPhotos.Models.Photo
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "新增照片";
 }
 
-<h2>Create</h2>
+<h2>新增照片</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("UploadPhoto", "PhotoUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Photo</legend>
-
         <div class="editor-label">
-            @Html.LabelFor(model => model.AlbumId, "Album")
+            @Html.LabelFor(model => model.AlbumId)
         </div>
         <div class="editor-field">
             @Html.DropDownList("AlbumId", String.Empty)
             @Html.ValidationMessageFor(model => model.AlbumId)
         </div>
+
+        @Html.Partial("_PhotoUploadPartial")
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
@@ -29,24 +31,22 @@
             @Html.ValidationMessageFor(model => model.Title)
         </div>
 
-         <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
+            @Html.TextAreaFor(model => model.Description, new { rows = "10", cols = "30" })
             @Html.ValidationMessageFor(model => model.Description)
         </div>
-
         <p>
-            <input type="submit" value="Create" />
+            <button type="submit">上传</button>
+            @Html.ActionLink("返回", "Index")
         </p>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/PhotoUpload.js"></script>
 }

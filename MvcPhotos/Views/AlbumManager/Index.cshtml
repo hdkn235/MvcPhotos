@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<MvcPhotos.Models.Album>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "相册管理";
 }
 
-<h2>Index</h2>
+<h2>相册管理</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("新增相册", "Create")
 </p>
 <table>
     <tr>
@@ -17,26 +17,19 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CoverPath)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.ActionLink(item.Name, "Details", new { id=item.AlbumId }) 
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CoverPath)
-        </td>
-        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.AlbumId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AlbumId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.AlbumId })
         </td>
     </tr>

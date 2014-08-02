@@ -185,6 +185,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlbumManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PhotoUploadController.cs" />
     <Compile Include="Controllers\PhotoManagerController.cs" />
     <Compile Include="Controllers\ValidateController.cs" />
     <Compile Include="DAL\AlbumRepository.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlExtensions.cs" />
     <Compile Include="IDAL\IAlbumRepository.cs" />
     <Compile Include="IDAL\IGenericRepository.cs" />
     <Compile Include="IDAL\IPhotoRepository.cs" />
@@ -205,8 +207,14 @@
     <Compile Include="Models\MvcPhotoDBInitializer.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\UploadPhoto.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\basic.css" />
+    <Content Include="Content\css\ImageArea.css" />
+    <Content Include="Content\css\dropzone.css" />
+    <Content Include="Content\images\spritemap%402x.png" />
+    <Content Include="Content\images\spritemap.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -263,12 +271,16 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Content\css\stylus\basic.styl" />
+    <Content Include="Content\css\stylus\dropzone.styl" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\dropzone.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.imgareaselect.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -279,7 +291,10 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\PhotoScripts.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\PhotoUpload.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -328,10 +343,13 @@
     <Content Include="Views\AlbumManager\Create.cshtml" />
     <Content Include="Views\AlbumManager\Edit.cshtml" />
     <Content Include="Views\AlbumManager\Delete.cshtml" />
+    <Content Include="Views\Shared\_PhotoUploadPartial.cshtml" />
+    <Content Include="Views\PhotoManager\BatchUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Attribute\" />
+    <Folder Include="Content\photos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

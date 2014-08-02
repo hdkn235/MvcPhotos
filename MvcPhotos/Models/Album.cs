@@ -30,7 +30,7 @@ namespace MvcPhotos.Models
         [StringLength(160, ErrorMessage = "相册描述长度不能超过160个字符")]
         public virtual string Description { get; set; }
 
-        [DisplayName("封面路径")]
+        [DisplayName("封面图片")]
         public virtual string CoverPath { get; set; }
 
         public virtual ICollection<Photo> Photos { get; set; }

@@ -1,0 +1,128 @@
+﻿@model MvcPhotos.Models.Photo
+
+@{
+    ViewBag.Title = "批量新增照片";
+}
+
+@section Styles{
+    <link href="~/Content/css/dropzone.css" rel="stylesheet" />
+}
+
+@section Scripts{
+    <script src="~/Scripts/dropzone.js"></script>
+
+    <script>
+        Dropzone.options.myDropzone = {
+
+            //Has to be specified on elements other than form
+            url: "@Url.Action("BatchUpload", "PhotoUpload")",
+
+            //This will add a link to every file preview to 
+            //remove or cancel (if already uploading) the file. 
+            addRemoveLinks: true,
+
+            // Prevents Dropzone from uploading dropped files immediately
+            autoProcessQueue: false,
+
+            //允许上传多个照片
+            uploadMultiple: true,
+
+            //每次上传的最多文件数，经测试默认为2，坑啊
+            //记得修改web.config 限制上传文件大小的节
+            parallelUploads: 100,
+
+            init: function () {
+                var submitButton = document.querySelector("#submit-all")
+                myDropzone = this; // closure
+
+                submitButton.addEventListener("click", function () {
+                    // Tell Dropzone to process all queued files.
+                    myDropzone.processQueue();
+                });
+
+                // You might want to show the submit button only when 
+                // files are dropped here:
+                this.on("addedfile", function () {
+                    $("#submit-all").removeAttr("disabled");
+                });
+
+                //to do something after ALL files are uploaded
+                this.on("complete", function (data) {
+                    if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                        var res = eval('(' + data.xhr.responseText + ')');
+                        var msg;
+                        if (res.Result) {
+                            msg = "恭喜，已成功上传" + res.Count + "张照片！";
+                        }
+                        else {
+                            msg = "上传失败，失败的原因是：" + res.Message;
+                        }
+                        $("#message").text(msg);
+                        $("#dialog").dialog("open");
+                    }
+                });
+
+                // Called whenever a file is removed from the list.n 
+                this.on("removedfile", function () {
+                    if (this.getAcceptedFiles().length === 0) {
+                        $("#submit-all").attr("disabled", true);
+                    }
+                });
+            }
+        };
+
+        $(function () {
+            $("#dialog").dialog({
+                modal: true,
+                autoOpen: false,
+                width: 350,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                },
+                buttons: {
+                    继续添加: function () {
+                        $(this).dialog("close");
+                    },
+                    返回列表: function () {
+                        location.href = "@Url.Action("Index")";
+                    }
+                }
+            });
+
+            $("#AlbumId").change(function () {
+                $("#hidAlbumId").val($(this).val());
+            });
+        });
+    </script>
+}
+<h2>批量新增照片</h2>
+
+<div>
+    选择相册
+    @Html.DropDownList("AlbumId")
+    或 
+    @Html.ActionLink("创建新的相册", "Create", "AlbumManager")
+</div>
+
+<form action="/"
+    class="dropzone"
+    enctype="multipart/form-data"
+    id="my-dropzone"
+    method="post">
+    @Html.Hidden("hidAlbumId")
+</form>
+
+<div>
+    <button type="submit" id="submit-all" disabled="disabled">上传</button>
+    @Html.ActionLink("返回列表", "Index")
+</div>
+
+<div id="dialog" title="提示">
+    <p id="message">
+    </p>
+</div>
