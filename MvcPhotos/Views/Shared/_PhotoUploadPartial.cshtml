@@ -1,3 +1,13 @@
 ﻿<div id="divPreview">
+    @{
+        if (ViewBag.State == "edit")
+        {
+            @Html.Image(
+                "preview",
+                Url.Content("~/Content/photos/" + ViewData["Path"].ToString()),
+                ViewData["Name"].ToString(),
+                new { Width = 500 });
+        }
+    }
 </div>
 

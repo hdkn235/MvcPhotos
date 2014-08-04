@@ -44,26 +44,6 @@ namespace MvcPhotos.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadAlbum(Album model)
-        {
-            if (ModelState.IsValid)
-            {
-                string name = SavePhoto();
-
-                if (ModelState.IsValid)
-                {
-                    model.CoverPath = name;
-                    unitOfWork.AlbumRepository.Insert(model);
-                    unitOfWork.Save();
-
-                    return RedirectToAction("Index", "AlbumManager");
-                }
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
         public ActionResult BatchUpload()
         {
             bool isSavedSuccessfully = true;

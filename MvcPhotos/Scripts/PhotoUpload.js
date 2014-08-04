@@ -20,7 +20,6 @@
         reader.readAsDataURL(f);
     });
 
-    $('button').attr('disabled', true);
     $('form').submit(function () {
         $('button').attr('disabled', true).text('请稍等 ...');
     });
@@ -38,7 +37,6 @@ function GetFileNameNoExt(filepath) {
 //选择图片后的事件
 function LoadPhoto(name, src) {
     $('#Title').val(name);
-    $('button').attr('disabled', false);
     $("#divPreview").html("<img id='preview' width='500' src='" + src + "' />");
     $("#divPreview").fadeIn(3000);
 }

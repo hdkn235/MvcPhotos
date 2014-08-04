@@ -6,12 +6,16 @@
 
 <h2>新增相册</h2>
 
-@using (Html.BeginForm("UploadAlbum", "PhotoUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm(
+    "Create",
+    "AlbumManager",
+    FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <fieldset>
+        <fieldset>
         <legend>Album</legend>
         <div id="upload-choices">
             <div class="editor-label">
@@ -26,6 +30,7 @@
             </div>
             <div class="editor-field">
                 @Html.File("File")
+                @Html.ValidationMessage("File")
             </div>
             <div class="editor-label">
                 @Html.LabelFor(model => model.Description)
@@ -35,7 +40,7 @@
                 @Html.ValidationMessageFor(model => model.Description)
             </div>
             <div class="clear">
-                <button type="submit">上传</button>
+                <button type="submit">保存</button>
                 @Html.ActionLink("返回", "Index")
             </div>
         </div>

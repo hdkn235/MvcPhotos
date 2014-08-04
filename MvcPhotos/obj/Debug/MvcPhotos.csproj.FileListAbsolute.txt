@@ -95,6 +95,6 @@ E:\Projects\MvcPhotos\MvcPhotos\bin\ko\System.Spatial.resources.dll
 E:\Projects\MvcPhotos\MvcPhotos\bin\ru\System.Spatial.resources.dll
 E:\Projects\MvcPhotos\MvcPhotos\bin\zh-Hans\System.Spatial.resources.dll
 E:\Projects\MvcPhotos\MvcPhotos\bin\zh-Hant\System.Spatial.resources.dll
-E:\Projects\MvcPhotos\MvcPhotos\obj\Debug\MvcPhotos.csprojResolveAssemblyReference.cache
 E:\Projects\MvcPhotos\MvcPhotos\obj\Debug\MvcPhotos.dll
 E:\Projects\MvcPhotos\MvcPhotos\obj\Debug\MvcPhotos.pdb
+E:\Projects\MvcPhotos\MvcPhotos\obj\Debug\MvcPhotos.csprojResolveAssemblyReference.cache

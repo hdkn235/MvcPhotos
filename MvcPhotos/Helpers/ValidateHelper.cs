@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using MvcPhotos.DAL;
 
-namespace MvcPhotos.Common
+namespace MvcPhotos.Helpers
 {
     public class ValidateHelper
     {

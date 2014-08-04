@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -27,16 +28,30 @@ namespace MvcPhotos.Helpers
             return html.File(name);
         }
 
+        /// <summary>
+        /// html扩展方法 生成img标签
+        /// </summary>
+        /// <param name="html"></param>
+        /// <param name="id">img标签的id</param>
+        /// <param name="src">img标签的src</param>
+        /// <param name="alternateText">img标签的提示文本</param>
+        /// <param name="htmlAttributes">img标签的属性</param>
+        /// <returns></returns>
         public static MvcHtmlString Image(
             this HtmlHelper html,
             string id,
-            string url,
+            string src,
             string alternateText = "",
             object htmlAttributes = null)
         {
+            //将相对路径转换为绝对路径
+            string filePath = HttpContext.Current.Server.MapPath(src);
+            if (!System.IO.File.Exists(filePath))
+                src = "/Content/images/nophoto.png";
+
             var tb = new TagBuilder("img");
             tb.GenerateId(id);
-            tb.MergeAttribute("src", url);
+            tb.MergeAttribute("src", src);
             tb.MergeAttribute("alt", alternateText);
             tb.MergeAttributes(new RouteValueDictionary(htmlAttributes));
             return MvcHtmlString.Create(tb.ToString(TagRenderMode.SelfClosing));

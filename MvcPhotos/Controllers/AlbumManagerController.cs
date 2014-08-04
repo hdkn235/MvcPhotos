@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcPhotos.Helpers;
 using MvcPhotos.DAL;
 using MvcPhotos.Models;
 
@@ -43,6 +44,7 @@ namespace MvcPhotos.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.State = "add";
             return View();
         }
 
@@ -53,11 +55,27 @@ namespace MvcPhotos.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Album album)
         {
-            if (ModelState.IsValid)
+            try
             {
-                unitOfWork.AlbumRepository.Insert(album);
-                unitOfWork.Save();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    string name = "";
+                    if (Request.Files.Count == 1)
+                        name = UploadHelper.SavePhotoToServer(Request.Files[0]);
+
+                    if (ModelState.IsValid)
+                    {
+                        album.CoverPath = name;
+                        unitOfWork.AlbumRepository.Insert(album);
+                        unitOfWork.Save();
+
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("File", ex);
             }
 
             return View(album);
@@ -73,6 +91,9 @@ namespace MvcPhotos.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.State = "edit";
+            ViewBag.Path = album.CoverPath ?? "";
+            ViewBag.Name = album.Name ?? "";
             return View(album);
         }
 
@@ -83,12 +104,31 @@ namespace MvcPhotos.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Album album)
         {
-            if (ModelState.IsValid)
+            try
             {
-                unitOfWork.AlbumRepository.Update(album);
-                unitOfWork.Save();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    string name = "";
+                    if (Request.Files.Count == 1)
+                        name = UploadHelper.UpdatePhotoToServer(
+                            album.CoverPath,
+                            Request.Files[0]);
+
+                    album.CoverPath = name;
+                    unitOfWork.AlbumRepository.Update(album);
+                    unitOfWork.Save();
+
+                    return RedirectToAction("Index");
+                }
             }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("File", ex);
+            }
+
+            ViewBag.State = "edit";
+            ViewBag.Path = album.CoverPath ?? "";
+            ViewBag.Name = album.Name ?? "";
             return View(album);
         }
 

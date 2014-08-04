@@ -10,18 +10,19 @@
 
 @section Scripts{
     <script src="~/Scripts/dropzone.js"></script>
-
+    
     <script>
+        //Dropzone的初始化，myDropzone为form的id
         Dropzone.options.myDropzone = {
 
-            //Has to be specified on elements other than form
+            //指定上传图片的路径
             url: "@Url.Action("BatchUpload", "PhotoUpload")",
 
-            //This will add a link to every file preview to 
-            //remove or cancel (if already uploading) the file. 
+            //添加上传取消和删除预览图片的链接，默认不添加
             addRemoveLinks: true,
 
-            // Prevents Dropzone from uploading dropped files immediately
+            //关闭自动上传功能，默认会true会自动上传
+            //也就是添加一张图片向服务器发送一次请求
             autoProcessQueue: false,
 
             //允许上传多个照片
@@ -36,17 +37,16 @@
                 myDropzone = this; // closure
 
                 submitButton.addEventListener("click", function () {
-                    // Tell Dropzone to process all queued files.
+                    //手动上传所有图片
                     myDropzone.processQueue();
                 });
 
-                // You might want to show the submit button only when 
-                // files are dropped here:
+                //当添加图片后的事件，上传按钮恢复可用
                 this.on("addedfile", function () {
                     $("#submit-all").removeAttr("disabled");
                 });
 
-                //to do something after ALL files are uploaded
+                //当上传完成后的事件，接受的数据为JSON格式
                 this.on("complete", function (data) {
                     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
                         var res = eval('(' + data.xhr.responseText + ')');
@@ -62,7 +62,7 @@
                     }
                 });
 
-                // Called whenever a file is removed from the list.n 
+                //删除图片的事件，当上传的图片为空时，使上传按钮不可用状态
                 this.on("removedfile", function () {
                     if (this.getAcceptedFiles().length === 0) {
                         $("#submit-all").attr("disabled", true);
